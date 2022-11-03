@@ -119,7 +119,7 @@ class AboutActivity : AppCompatActivity() {
                                 ctx.startActivity(intent)
                             } catch (e: ActivityNotFoundException) {
                                 ctx.startActivity(Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id=" + ctx.packageName)))
+                                    Uri.parse("https://play.google.com/store/apps/details?id=" + ctx.packageName)))
                             }
                         }
                         else -> ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
