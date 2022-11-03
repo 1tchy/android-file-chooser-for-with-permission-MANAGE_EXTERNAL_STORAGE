@@ -1,6 +1,5 @@
 package com.obsez.android.lib.filechooser;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
@@ -18,7 +17,6 @@ import androidx.core.content.ContextCompat;
 import com.obsez.android.lib.filechooser.internals.ExtFileFilter;
 import com.obsez.android.lib.filechooser.internals.FileUtil;
 import com.obsez.android.lib.filechooser.internals.RegexFileFilter;
-import com.obsez.android.lib.filechooser.permissions.PermissionsUtil;
 import com.obsez.android.lib.filechooser.tool.DirAdapter;
 import com.obsez.android.lib.filechooser.tool.RootFile;
 
@@ -195,7 +193,6 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
 
     /**
      * To enable the option pane with create/delete folder on the fly.
-     * When u set it true, you may need WRITE_EXTERNAL_STORAGE declaration too.
      *
      * @param enableOptions true/false
      * @return this
@@ -508,52 +505,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
             build();
         }
 
-        if (_permissionListener == null) {
-            _permissionListener = new PermissionsUtil.OnPermissionListener() {
-                @Override
-                public void onPermissionGranted(String[] permissions) {
-                    boolean show = false;
-                    for (String permission : permissions) {
-                        if (permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            show = true;
-                            break;
-                        }
-                    }
-                    if (!show) return;
-                    if (_enableOptions) {
-                        show = false;
-                        for (String permission : permissions) {
-                            if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                                show = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!show) return;
-                    if (_adapter.isEmpty()) refreshDirs();
-                    showDialog();
-                }
-
-                @Override
-                public void onPermissionDenied(String[] permissions) {
-                    //
-                }
-
-                @Override
-                public void onShouldShowRequestPermissionRationale(final String[] permissions) {
-                    Toast.makeText(_context, "You denied the Read/Write permissions on SDCard.",
-                        Toast.LENGTH_LONG).show();
-                }
-            };
-        }
-
-        final String[] permissions =
-            _enableOptions ? new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                : new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
-
-        PermissionsUtil.checkPermissions(_context, _permissionListener, permissions);
-
+        showDialog();
         return this;
     }
 
@@ -916,7 +868,6 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     @Nullable
     View _newFolderView;
     boolean _enableMultiple;
-    private PermissionsUtil.OnPermissionListener _permissionListener;
     private boolean _cancelOnTouchOutside;
     boolean _enableDpad = true;
     Button _neutralBtn;

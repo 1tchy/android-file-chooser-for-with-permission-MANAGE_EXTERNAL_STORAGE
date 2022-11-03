@@ -371,9 +371,16 @@ see the sample codes in demo app.
 
 **NOTE**:
 
-1. extra `WRITE_EXTERNAL_STORAGE` permission should be declared in your `AndroidManifest.xml`.
-2. we'll ask the extra runtime permission to `WRITE_EXTERNAL_STORAGE` on Android M and higher too.
-
+1. extra `MANAGE_EXTERNAL_STORAGE` permission should be declared in your `AndroidManifest.xml`.
+2. remember, that `MANAGE_EXTERNAL_STORAGE` needs [valid reasons](https://support.google.com/googleplay/android-developer/answer/10467955) to be able to use it
+3. you can check with `Environment.isExternalStorageManager()`, whether the user gave you the permission or not
+4. you can open the relevant setting for the user by something like the following in your `Fragment`:
+```java
+ActivityResultLauncher<Intent> permissionRequestedResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> checkPermissionGranted());
+binding.openPermissonButton.setOnClickListener(v ->
+		permissionRequestedResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION))
+);
+```
 
 #### `disableTitle(true)`
 
