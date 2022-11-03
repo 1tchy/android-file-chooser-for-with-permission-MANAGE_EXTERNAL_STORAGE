@@ -46,7 +46,6 @@ You can also support him via [opencollective](https://opencollective.com/android
 allprojects {
     repositories {
         google()
-        jcenter()
         maven { url "https://jitpack.io" }
     }
 }

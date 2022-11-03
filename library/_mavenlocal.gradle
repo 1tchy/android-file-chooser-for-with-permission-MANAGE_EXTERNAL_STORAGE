@@ -48,7 +48,6 @@ android.libraryVariants
 //}
 
 
-//https://www.virag.si/2015/01/publishing-gradle-android-library-to-jcenter/
 //def siteUrl = 'https://github.com/izacus/FuzzyDateFormatter'      // Homepage URL of the library
 //def gitUrl = 'https://github.com/izacus/FuzzyDateFormatter.git'   // Git repository URL
 publishing {
