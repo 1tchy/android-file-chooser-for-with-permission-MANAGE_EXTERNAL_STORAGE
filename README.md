@@ -1,26 +1,17 @@
-# android-file-chooser
+# android-file-chooser working with MANAGE_EXTERNAL_STORAGE permission of Android 11
+
+This is a fork of the android-file-chooser, but adapted to work with the
+MANAGE_EXTERNAL_STORAGE permission from Android 11.
+
+### android-file-chooser
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--file--chooser-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6982)
-[![Download](https://api.bintray.com/packages/hedzr/maven/filechooser/images/download.svg)](https://bintray.com/hedzr/maven/filechooser/_latestVersion)
 [![Release](https://jitpack.io/v/hedzr/android-file-chooser.svg)](https://jitpack.io/#hedzr/android-file-chooser)
 [![Build Status](https://travis-ci.com/hedzr/android-file-chooser.svg?branch=master)](https://travis-ci.com/hedzr/android-file-chooser)
 
-### Legacy
-
-```
-dependencies {
-	// implementation 'com.github.hedzr:android-file-chooser:1.2.0-SNAPSHOT'
-	implementation 'com.github.hedzr:android-file-chooser:v1.2.0'
-}
-```
-
-### MediaStore for Android Q (still in beta)
-
-```
-dependencies {
-	implementation 'com.github.hedzr:android-file-chooser:devel-SNAPSHOT'
-}
-```
+###  android-file-chooser-for-with-permission-MANAGE_EXTERNAL_STORAGE
+[![Relese](https://jitpack.io/v/1tchy/android-file-chooser-for-with-permission-MANAGE_EXTERNAL_STORAGE.svg)](https://jitpack.io/#1tchy/android-file-chooser-for-with-permission-MANAGE_EXTERNAL_STORAGE/)
+[![API](https://img.shields.io/badge/API-30%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=30)
 
 `android-file-library` is a lightweight file/folder chooser.
 
@@ -34,116 +25,20 @@ The usages at [HERE](#Usages), and [Acknowledges](#Acknowledges).
 
 ### Demo Application
 
-A demo-app can be installed from [Play Store](https://play.google.com/store/apps/details?id=com.obsez.android.lib.filechooser.demo).
+A demo-app of the original can be installed from [Play Store](https://play.google.com/store/apps/details?id=com.obsez.android.lib.filechooser.demo).
 
 <a href='https://play.google.com/store/apps/details?id=com.obsez.android.lib.filechooser.demo&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width='240' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
+**NOTE**:
 
-
-### Xamarin Binding
-
-A Xamarin nuget package by [@Guiorgy](https://github.com/Guiorgy) can be found at [![NuGet](https://img.shields.io/nuget/v/XamarinFileChooser.svg?style=flat&max-age=86400)](https://www.nuget.org/packages/XamarinFileChooser/)
-
-
-
-## Changes
-
-### `x1.2.0` branch
-
-- **In progress**
-- Plan: uses AndroidX
-
-### v1.1.x patches on `master`
-
-- 
-
-### v1.1.19
-
-- bugs fixed
-- minor fixes for themes
-- #60, #61, #62 fixed
-- revamped Dpad controls
-- added cancelOnTouchOutside and enableDpad (true by default)
-- mainly by Guiorgy.
-
-### v1.1.18
-
-temporary release with gradle 5.1.1 compartibility test.
-
-this library works within androidx project.
-
-### v1.1.17
-
-- bugs fixed.
-- rewrite demo app
-- small tunes
-  - show dlg after permissions granted, without fault
-  - better text color and dark facade
-  - displaying the current path string
-  - etc.
-
-### Archived History:
-
-- #48: add `displayPath(boolean)`, thank you [@Guiorgy](https://github.com/Guiorgy), and your [android-smbfile-chooser](https://github.com/Guiorgy/android-smbfile-chooser).
-- new style demo app by @Guiorgy.
-- NOTE: `displayPath` is true by default now.
-- since v1.1.16, bumped targer sdk to 1.8 (please include the following into your build.gradle)
-```java
-android {
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-}
-```
-
-- no WRITE_EXTERNAL_STORAGE requests if not `enableOptions(true)`;
-- after requested permissions, try showing dialog again instead of return directly;
-- #42: onBackPressedListener not fired.
-  Now, use `withCancelListener` to handle back key. see also [below](#onCancelListener)
-- #45: add `titleFollowsDir(boolean)`  to allow title following the change of current directory.
-- create new folder on the fly, and the optional multiple select mode for developer, thx @Guiorgy.
-- Up (`..`) on the primary storage root will be replaced with `.. SDCard`, it allows to jump to external storage such as a SDCard and going back available too.
-- DPad supports, arrow keys supports (#30)
-
-
-### Snapshots
-
-<table><tr><td>
-<img src="captures/choose_file.png" width="360"/>
-</td><td>
-<img src="captures/choose_folder.png" width="360"/>
-</td><td>
-<img src="https://user-images.githubusercontent.com/27736965/55721190-c0616e80-5a13-11e9-982e-6fa1431be8ed.gif" width="360"/>
-</td></tr>
-<tr align="center">
-<img src="https://user-images.githubusercontent.com/27736965/55720938-1b469600-5a13-11e9-8953-70cf86f4af11.gif" width="1080"/>
-</tr>
-</table>
-
-More images (beyond v1.1.16) have been found at [Gallery](https://github.com/hedzr/android-file-chooser/wiki/Gallery)
-
-
-
+Please don't forget to check the [**_upstream_**](https://github.com/hedzr/android-file-chooser) and give it a :star:!\
+You can also support him via [opencollective](https://opencollective.com/android-file-chooser) and [paypal](https://paypal.me/hezr/3).
 
 ## Usages
 
 ### Configuration
 
 #### build.gradle
-
-android-file-chooser was released at jcenter, declare deps with:
-
-```gradle
-implementation 'com.obsez.android.lib.filechooser:filechooser:$android_file_chooser_version'
-```
-
-for the newest version(s), looking up the badges above.
-
-
-#### taste the fresh
-
-there is a way to taste the `master` branch with [jitpack.io](https://jitpack.io):
 
 1. add the jitpack repository url to your root build.gradle:
 
@@ -160,8 +55,7 @@ allprojects {
 2. import `android-file-chooser`
 
 ```gradle
-implementation 'com.github.hedzr:android-file-chooser:master-SNAPSHOT'
-// implementation 'com.github.hedzr:android-file-chooser:v1.1.14'
+implementation 'com.github.1tchy:android-file-chooser-for-with-permission-MANAGE_EXTERNAL_STORAGE:master-SNAPSHOT'
 ```
 
 > **Tips for using JitPack.io**
@@ -594,22 +488,13 @@ And:
 
 
 
-## For Library Developers
+## What's Different?
 
-Just fork and build me currently.
+- ...
+- ...
+- ...
 
-
-
-## Contrib
-
-Contributions and translations are welcome.
-
-
-
-## Feedback
-
-feel free to make a new issue.
-
+For more information please refer to the [upstream repo](https://github.com/hedzr/android-file-chooser).\
 
 
 ## Acknowledges
@@ -627,5 +512,16 @@ many peoples report or contribute to improve me, but only a few of them be put h
 Standard Apache 2.0
 
 Copyright 2015-2019 Hedzr Yeh.
+Modified 2022 1tchy
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
+   <http://www.apache.org/licenses/LICENSE-2.0>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
