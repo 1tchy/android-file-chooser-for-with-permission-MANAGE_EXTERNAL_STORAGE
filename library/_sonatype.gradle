@@ -15,11 +15,6 @@ def getSonatypeProperties() {
     Properties localProperties = new Properties()
     if (project.rootProject.file('local.properties').exists()) {
         localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
-        if (localProperties.getProperty("bintray.user") == null) {
-            return null
-        } else {
-            println "user=" + localProperties.getProperty("bintray.user") + ", key=" + localProperties.getProperty("bintray.apikey")
-        }
     }
     return localProperties
 }

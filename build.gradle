@@ -18,26 +18,12 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.9.6'
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
         //classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
-
-//plugins {
-//    id "com.jfrog.bintray" version "1.2"
-//}
-//apply plugin: 'com.jfrog.artifactory'
-//apply plugin: 'com.jfrog.bintray'
-// only our subprojects have a bintray configuration. replace the root project's
-// `bintrayUpload` task with one that restricts the calls to the subprojects.
-//project.afterEvaluate {
-//    task bintrayUpload(group: "publishing", overwrite: true) {
-//        dependsOn subprojects.bintrayUpload
-//    }
-//}
 
 allprojects {
     repositories {
