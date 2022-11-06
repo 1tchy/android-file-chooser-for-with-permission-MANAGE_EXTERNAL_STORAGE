@@ -288,10 +288,8 @@ class onShowListener implements DialogInterface.OnShowListener {
                                     ta = context.obtainStyledAttributes(R.styleable.FileChooser);
 
                                     try {
-                                        //noinspection ConstantConditions
                                         ((AlertDialog) dialog).getWindow().clearFlags(
                                             FLAG_NOT_FOCUSABLE | FLAG_ALT_FOCUSABLE_IM);
-                                        //noinspection ConstantConditions
                                         ((AlertDialog) dialog).getWindow().setSoftInputMode(
                                             SOFT_INPUT_STATE_VISIBLE |
                                                 ta.getInt(

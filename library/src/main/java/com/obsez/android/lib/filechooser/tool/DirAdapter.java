@@ -81,7 +81,6 @@ public class DirAdapter extends ArrayAdapter<File> {
     }
 
     // This function is called to show each view item
-    @SuppressWarnings("ConstantConditions")
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
@@ -181,11 +180,9 @@ public class DirAdapter extends ArrayAdapter<File> {
     @Override
     public long getItemId(int position) {
         try {
-            //noinspection ConstantConditions
             return getItem(position).hashCode();
         } catch (IndexOutOfBoundsException e) {
             try {
-                //noinspection ConstantConditions
                 return getItem(0).hashCode();
             } catch (IndexOutOfBoundsException ex) {
                 return 0;
