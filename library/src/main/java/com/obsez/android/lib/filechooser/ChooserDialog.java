@@ -878,7 +878,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
         lastSelected = false;
     }
 
-    List<File> _entries = new ArrayList<>();
+    final List<File> _entries = new ArrayList<>();
     DirAdapter _adapter;
     File _currentDir;
     Context _context;

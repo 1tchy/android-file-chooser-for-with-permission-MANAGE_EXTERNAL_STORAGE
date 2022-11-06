@@ -8,9 +8,9 @@ import java.util.regex.Pattern;
  * Created by coco on 6/7/15.
  */
 public class RegexFileFilter implements FileFilter {
-    boolean m_allowHidden;
-    boolean m_onlyDirectory;
-    Pattern m_pattern;
+    final boolean m_allowHidden;
+    final boolean m_onlyDirectory;
+    final Pattern m_pattern;
 
     public RegexFileFilter() {
         this(null);

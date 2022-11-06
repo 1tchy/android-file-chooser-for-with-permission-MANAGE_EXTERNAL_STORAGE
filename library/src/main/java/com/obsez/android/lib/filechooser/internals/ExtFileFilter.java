@@ -7,9 +7,9 @@ import java.io.FileFilter;
  * Created by coco on 6/7/15.
  */
 public class ExtFileFilter implements FileFilter {
-    boolean m_allowHidden;
-    boolean m_onlyDirectory;
-    String[] m_ext;
+    final boolean m_allowHidden;
+    final boolean m_onlyDirectory;
+    final String[] m_ext;
 
     public ExtFileFilter() {
         this(false, false);
