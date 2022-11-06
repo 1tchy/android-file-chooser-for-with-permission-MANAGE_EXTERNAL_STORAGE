@@ -10,6 +10,9 @@ import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,10 +25,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 /**
  * Created by coco on 6/7/15.
@@ -87,32 +86,17 @@ public class FileUtil {
 
     @Nullable
     public static File getDefaultPathAsFile(Context context, boolean isRemovable) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            String path = getDefaultPath(context, isRemovable);
-            return new File(path);
-        } else {
-            return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        }
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
     }
 
     @NonNull
     public static String getDefaultPath(Context context, boolean isRemovable) {
-        String path;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            path = getStoragePath(context, isRemovable);
-        } else {
-            path = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-        }
-        return path;
+        return context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     }
 
     @NonNull
     public static String getVolDescription(Context context, StorageVolume vol) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return getVolDescLow(context,  vol);
-        } else {
-            return getVolDesc24(context, vol);
-        }
+        return getVolDesc24(context, vol);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -139,11 +123,7 @@ public class FileUtil {
 
     @NonNull
     public static List<StorageVolume> getStorageVols(Context context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return getStorageVolsLow(context);
-        } else {
-            return getStorageVols24(context);
-        }
+        return getStorageVols24(context);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -178,11 +158,7 @@ public class FileUtil {
 
     @NonNull
     public static String getStoragePath(Context context, boolean isRemovable) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            return getStoragePathLow(context, isRemovable);
-        } else {
-            return getStoragePath24(context, isRemovable);
-        }
+        return getStoragePath24(context, isRemovable);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -259,18 +235,9 @@ public class FileUtil {
         String path = getStoragePath(context, isRemovable);
         try {
             StatFs sf = new StatFs(path);
-            long blockSize;
-            long blockCount;
-            long availCount;
-            if (Build.VERSION.SDK_INT > 18) {
-                blockSize = sf.getBlockSizeLong(); //文件存储时每一个存储块的大小为4KB
-                blockCount = sf.getBlockCountLong();//存储区域的存储块的总个数
-                availCount = sf.getFreeBlocksLong();//存储区域中可用的存储块的个数（剩余的存储大小）
-            } else {
-                blockSize = sf.getBlockSize();
-                blockCount = sf.getBlockCount();
-                availCount = sf.getFreeBlocks();
-            }
+            long blockSize = sf.getBlockSizeLong(); //文件存储时每一个存储块的大小为4KB
+            long blockCount = sf.getBlockCountLong();//存储区域的存储块的总个数
+            long availCount = sf.getFreeBlocksLong();//存储区域中可用的存储块的个数（剩余的存储大小）
             //Log.d("sss", "总的存储空间大小:" + blockSize * blockCount / 1073741824 + "GB" + ",剩余空间:"
             //    + availCount * blockSize / 1073741824 + "GB"
             //    + "--存储块的总个数--" + blockCount + "--一个存储块的大小--" + blockSize / 1024 + "KB");

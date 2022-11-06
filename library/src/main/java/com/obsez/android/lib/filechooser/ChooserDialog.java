@@ -9,31 +9,12 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.DrawableRes;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.annotation.StringRes;
-import androidx.annotation.StyleRes;
+import android.view.*;
+import android.widget.*;
+import androidx.annotation.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-
 import com.obsez.android.lib.filechooser.internals.ExtFileFilter;
 import com.obsez.android.lib.filechooser.internals.FileUtil;
 import com.obsez.android.lib.filechooser.internals.RegexFileFilter;
@@ -179,8 +160,8 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     /**
-     *  called every time {@link KeyEvent#KEYCODE_BACK} is caught,
-     *  and current directory is not the root of Primary/SdCard storage.
+     * called every time {@link KeyEvent#KEYCODE_BACK} is caught,
+     * and current directory is not the root of Primary/SdCard storage.
      */
     public ChooserDialog withOnBackPressedListener(OnBackPressedListener listener) {
         if (this._onBackPressed instanceof defBackPressed) {
@@ -208,7 +189,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withStringResources(@Nullable String titleRes, @Nullable String okRes,
-        @Nullable String cancelRes) {
+                                             @Nullable String cancelRes) {
         this._title = titleRes;
         this._ok = okRes;
         this._negative = cancelRes;
@@ -228,7 +209,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withOptionResources(@StringRes int createDirRes, @StringRes int deleteRes,
-        @StringRes int newFolderCancelRes, @StringRes int newFolderOkRes) {
+                                             @StringRes int newFolderCancelRes, @StringRes int newFolderOkRes) {
         this._createDirRes = createDirRes;
         this._deleteRes = deleteRes;
         this._newFolderCancelRes = newFolderCancelRes;
@@ -237,7 +218,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withOptionStringResources(@Nullable String createDir, @Nullable String delete,
-        @Nullable String newFolderCancel, @Nullable String newFolderOk) {
+                                                   @Nullable String newFolderCancel, @Nullable String newFolderOk) {
         this._createDir = createDir;
         this._delete = delete;
         this._newFolderCancel = newFolderCancel;
@@ -246,7 +227,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withOptionIcons(@DrawableRes int optionsIconRes, @DrawableRes int createDirIconRes,
-        @DrawableRes int deleteRes) {
+                                         @DrawableRes int deleteRes) {
         this._optionsIconRes = optionsIconRes;
         this._createDirIconRes = createDirIconRes;
         this._deleteIconRes = deleteRes;
@@ -254,7 +235,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withOptionIcons(@Nullable Drawable optionsIcon, @Nullable Drawable createDirIcon,
-        @Nullable Drawable deleteIcon) {
+                                         @Nullable Drawable deleteIcon) {
         this._optionsIcon = optionsIcon;
         this._createDirIcon = createDirIcon;
         this._deleteIcon = deleteIcon;
@@ -292,14 +273,14 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withNegativeButton(@StringRes int cancelTitle,
-        final DialogInterface.OnClickListener listener) {
+                                            final DialogInterface.OnClickListener listener) {
         this._negativeRes = cancelTitle;
         this._negativeListener = listener;
         return this;
     }
 
     public ChooserDialog withNegativeButton(@Nullable String cancelTitle,
-        final DialogInterface.OnClickListener listener) {
+                                            final DialogInterface.OnClickListener listener) {
         this._negative = cancelTitle;
         if (cancelTitle != null) this._negativeRes = -1;
         this._negativeListener = listener;
@@ -326,7 +307,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withFileIcons(final boolean tryResolveFileTypeAndIcon, final Drawable fileIcon,
-        final Drawable folderIcon) {
+                                       final Drawable folderIcon) {
         _adapterSetter = adapter -> {
             if (fileIcon != null) adapter.setDefaultFileIcon(fileIcon);
             if (folderIcon != null) adapter.setDefaultFolderIcon(folderIcon);
@@ -336,7 +317,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     public ChooserDialog withFileIconsRes(final boolean tryResolveFileTypeAndIcon, final int fileIcon,
-        final int folderIcon) {
+                                          final int folderIcon) {
         _adapterSetter = adapter -> {
             if (fileIcon != -1) {
                 adapter.setDefaultFileIcon(ContextCompat.getDrawable(_context, fileIcon));
@@ -455,9 +436,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
         }
 
         if (_layoutRes != -1) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder.setView(_layoutRes);
-            }
+            builder.setView(_layoutRes);
         }
 
         if (_dirOnly || _enableMultiple) {
@@ -488,7 +467,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
             builder.setOnCancelListener(_cancelListener);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && _onDismissListener != null) {
+        if (_onDismissListener != null) {
             builder.setOnDismissListener(_onDismissListener);
         }
 
@@ -530,11 +509,6 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     public ChooserDialog show() {
         if (_alertDialog == null || _list == null) {
             build();
-        }
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            showDialog();
-            return this;
         }
 
         if (_permissionListener == null) {
@@ -619,11 +593,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
             root.addView(_pathView, 0, params);
 
             int elevation = ta.getInt(R.styleable.FileChooser_fileChooserPathViewElevation, 2);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                _pathView.setElevation(elevation);
-            } else {
-                ViewCompat.setElevation(_pathView, elevation);
-            }
+            _pathView.setElevation(elevation);
             ta.recycle();
 
             if (_customizePathView != null) {

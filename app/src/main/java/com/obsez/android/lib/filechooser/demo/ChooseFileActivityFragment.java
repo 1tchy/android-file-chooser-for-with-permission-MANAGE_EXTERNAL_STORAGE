@@ -6,35 +6,28 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.StorageVolume;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import com.obsez.android.lib.filechooser.ChooserDialog;
 import com.obsez.android.lib.filechooser.demo.tool.ImageUtil;
 import com.obsez.android.lib.filechooser.internals.FileUtil;
 import com.obsez.android.lib.filechooser.tool.RootFile;
+import timber.log.Timber;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import timber.log.Timber;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -88,7 +81,7 @@ public class ChooseFileActivityFragment extends Fragment implements View.OnClick
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-        @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View root = inflater.inflate(R.layout.fragment_choose_file, container, false);
@@ -193,53 +186,8 @@ public class ChooseFileActivityFragment extends Fragment implements View.OnClick
         }
         if (enableMultiple.isChecked()) {
             chooserDialog.enableMultiple(true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                chooserDialog
-                    .withOnDismissListener(dialog -> {
-                        if (files.isEmpty()) return;
-
-                        ArrayList<String> paths = new ArrayList<>();
-                        for (File file : files) {
-                            paths.add(file.getAbsolutePath());
-                        }
-
-                        AlertDialog.Builder builder = darkTheme.isChecked() ? new AlertDialog.Builder(ctx,
-                            R.style.FileChooserDialogStyle_Dark) : new AlertDialog.Builder(ctx,
-                            R.style.FileChooserDialogStyle);
-                        builder.setTitle(files.size() + " files selected:")
-                            .setAdapter(new ArrayAdapter<>(ctx,
-                                android.R.layout.simple_expandable_list_item_1, paths), null)
-                            .create()
-                            .show();
-                    })
-                    .withOnBackPressedListener(dialog -> {
-                        files.clear();
-                        dialog.dismiss();
-                    })
-                    .withOnLastBackPressedListener(dialog -> {
-                        files.clear();
-                        dialog.dismiss();
-                    })
-                    .withNegativeButtonListener((dialog, which) -> {
-                        files.clear();
-                        dialog.dismiss();
-                    })
-                    .withChosenListener((dir, dirFile) -> {
-                        if (continueFromLast.isChecked()) {
-                            _path = dir;
-                        }
-                        if (dirFile.isDirectory()) {
-                            chooserDialog.dismiss();
-                            return;
-                        }
-                        if (!files.remove(dirFile)) {
-                            files.add(dirFile);
-                        }
-                    });
-            } else {
-                // OnDismissListener is not supported, so we simulate something similar anywhere where the
-                // dialog might be dismissed.
-                final Runnable onDismiss = () -> {
+            chooserDialog
+                .withOnDismissListener(dialog -> {
                     if (files.isEmpty()) return;
 
                     ArrayList<String> paths = new ArrayList<>();
@@ -255,38 +203,31 @@ public class ChooseFileActivityFragment extends Fragment implements View.OnClick
                             android.R.layout.simple_expandable_list_item_1, paths), null)
                         .create()
                         .show();
-                };
-
-                chooserDialog
-                    .withOnBackPressedListener(dialog -> {
-                        files.clear();
-                        dialog.dismiss();
-                        onDismiss.run();
-                    })
-                    .withOnLastBackPressedListener(dialog -> {
-                        files.clear();
-                        dialog.dismiss();
-                        onDismiss.run();
-                    })
-                    .withNegativeButtonListener((dialog, which) -> {
-                        files.clear();
-                        dialog.dismiss();
-                        onDismiss.run();
-                    })
-                    .withChosenListener((dir, dirFile) -> {
-                        if (continueFromLast.isChecked()) {
-                            _path = dir;
-                        }
-                        if (dirFile.isDirectory()) {
-                            chooserDialog.dismiss();
-                            onDismiss.run();
-                            return;
-                        }
-                        if (!files.remove(dirFile)) {
-                            files.add(dirFile);
-                        }
-                    });
-            }
+                })
+                .withOnBackPressedListener(dialog -> {
+                    files.clear();
+                    dialog.dismiss();
+                })
+                .withOnLastBackPressedListener(dialog -> {
+                    files.clear();
+                    dialog.dismiss();
+                })
+                .withNegativeButtonListener((dialog, which) -> {
+                    files.clear();
+                    dialog.dismiss();
+                })
+                .withChosenListener((dir, dirFile) -> {
+                    if (continueFromLast.isChecked()) {
+                        _path = dir;
+                    }
+                    if (dirFile.isDirectory()) {
+                        chooserDialog.dismiss();
+                        return;
+                    }
+                    if (!files.remove(dirFile)) {
+                        files.add(dirFile);
+                    }
+                });
         } else {
             chooserDialog.withChosenListener((dir, dirFile) -> {
                 if (continueFromLast.isChecked()) {

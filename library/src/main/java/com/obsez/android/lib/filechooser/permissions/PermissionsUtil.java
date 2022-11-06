@@ -2,9 +2,7 @@ package com.obsez.android.lib.filechooser.permissions;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.SparseArray;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -23,8 +21,8 @@ public final class PermissionsUtil {
     }
 
     public static void checkPermissions(@NonNull Context context,
-        @Nullable final OnPermissionListener onPermissionListener, final String... permissions) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || permissions.length == 0) {
+                                        @Nullable final OnPermissionListener onPermissionListener, final String... permissions) {
+        if (permissions.length == 0) {
             if (onPermissionListener != null) onPermissionListener.onPermissionGranted(permissions);
             return;
         }
