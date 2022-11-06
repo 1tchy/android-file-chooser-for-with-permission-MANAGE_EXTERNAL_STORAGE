@@ -27,7 +27,7 @@ public class ImageUtil {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inJustDecodeBounds = true;
 
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(imgFile);
             BitmapFactory.decodeStream(fis, null, o);
@@ -64,8 +64,7 @@ public class ImageUtil {
         try {
             if (imgFile.exists()) {
 
-                Bitmap bitmap = decodeFile(imgFile.getAbsolutePath());
-                return bitmap;
+                return decodeFile(imgFile.getAbsolutePath());
 
             }
         } catch (Exception e) {

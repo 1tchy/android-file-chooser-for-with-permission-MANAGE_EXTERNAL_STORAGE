@@ -63,7 +63,7 @@ public class FileUtil {
     }
 
     public static String getReadableFileSize(long size) {
-        float fileSize = 0;
+        float fileSize;
         String suffix = Constants.KILOBYTES;
 
         if (size < Constants.BYTES_IN_KILOBYTES) {
@@ -111,11 +111,7 @@ public class FileUtil {
             Method getDesc = vol.getClass().getMethod("getDescription");
             Object result = getDesc.invoke(vol, context);
             return (String) result;
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return vol.toString();
@@ -131,8 +127,7 @@ public class FileUtil {
     private static List<StorageVolume> getStorageVols24(Context context) {
         StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
         try {
-            List<StorageVolume> result = Objects.requireNonNull(storageManager).getStorageVolumes();
-            return result;
+            return Objects.requireNonNull(storageManager).getStorageVolumes();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -146,11 +141,7 @@ public class FileUtil {
             Method getVolumeList = storageManager.getClass().getMethod("getVolumeList");
             Object result = getVolumeList.invoke(storageManager);
             return (List<StorageVolume>) result;
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
@@ -178,13 +169,7 @@ public class FileUtil {
                 Log.d("X", "    ---path--" + path);
                 return path;
             }
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
+        } catch (InvocationTargetException | NullPointerException | IllegalAccessException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -193,7 +178,7 @@ public class FileUtil {
     @NonNull
     public static String getStoragePathLow(Context context, boolean isRemovable) {
         StorageManager storageManager = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
-        Class<?> storageVolumeClazz = null;
+        Class<?> storageVolumeClazz;
         try {
             storageVolumeClazz = Class.forName("android.os.storage.StorageVolume");
             Method getVolumeList = storageManager.getClass().getMethod("getVolumeList");
@@ -214,13 +199,7 @@ public class FileUtil {
                     return path;
                 }
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return Environment.getExternalStorageDirectory().getAbsolutePath();

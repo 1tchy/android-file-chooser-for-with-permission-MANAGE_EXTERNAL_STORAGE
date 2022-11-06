@@ -217,7 +217,7 @@ public class DirAdapter extends ArrayAdapter<File> {
     }
 
     public List<File> getSelected() {
-        ArrayList<File> list = new ArrayList<File>();
+        ArrayList<File> list = new ArrayList<>();
         for (int i = 0; i < _selected.size(); i++) {
             list.add(_selected.valueAt(i));
         }
@@ -245,7 +245,7 @@ public class DirAdapter extends ArrayAdapter<File> {
     private Drawable _defaultFileIcon = null;
     private boolean _resolveFileType = false;
     private PorterDuffColorFilter _colorFilter;
-    private SparseArrayCompat<File> _selected = new SparseArrayCompat<File>();
+    private SparseArrayCompat<File> _selected = new SparseArrayCompat<>();
     private GetView _getView = null;
     private final Stack<Integer> _indexStack = new Stack<>();
 }

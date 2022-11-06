@@ -25,10 +25,7 @@ import com.obsez.android.lib.filechooser.tool.RootFile;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import static androidx.appcompat.widget.ListPopupWindow.MATCH_PARENT;
@@ -741,7 +738,7 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     }
 
     private void sortByName(List<File> list) {
-        Collections.sort(list, (f1, f2) -> f1.getName().toLowerCase().compareTo(f2.getName().toLowerCase()));
+        list.sort(Comparator.comparing(f -> f.getName().toLowerCase()));
     }
 
     void createNewDirectory(String name) {
