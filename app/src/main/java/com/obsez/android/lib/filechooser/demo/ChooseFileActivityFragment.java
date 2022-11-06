@@ -172,7 +172,9 @@ public class ChooseFileActivityFragment extends Fragment implements View.OnClick
             .withOptionStringResources("New folder",
                 "Delete", "Cancel", "Ok")*/
             .withNavigateUpTo(dir -> {
-                return dir!=null && (dir.canRead() || true);
+                if (dir == null) return false;
+                dir.canRead();
+                return true;
             })
             .disableTitle(disableTitle.isChecked())
             .enableOptions(enableOptions.isChecked())

@@ -104,8 +104,8 @@ public class PermissionActivity extends AppCompatActivity {
     private PermissionsUtil.OnPermissionListener _permissionListener;
     public int _requestCode;
 
-    private List<String> _permissions_granted = new ArrayList<>();
-    private List<String> _permissions_denied = new ArrayList<>();
+    private final List<String> _permissions_granted = new ArrayList<>();
+    private final List<String> _permissions_denied = new ArrayList<>();
 
     public static final String INTENT_EXTRA_PERMISSIONS = "PERMISSIONS";
     public static final String INTENT_EXTRA_REQUEST_CODE = "REQUEST_CODE";

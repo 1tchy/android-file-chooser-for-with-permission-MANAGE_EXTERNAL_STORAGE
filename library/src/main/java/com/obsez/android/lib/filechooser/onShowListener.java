@@ -49,7 +49,7 @@ import static com.obsez.android.lib.filechooser.ChooserDialog.CHOOSE_MODE_SELECT
 import static com.obsez.android.lib.filechooser.internals.UiUtil.getListYScroll;
 
 class onShowListener implements DialogInterface.OnShowListener {
-    private WeakReference<ChooserDialog> _c;
+    private final WeakReference<ChooserDialog> _c;
 
     onShowListener(ChooserDialog c) {
         this._c = new WeakReference<>(c);
@@ -70,7 +70,7 @@ class onShowListener implements DialogInterface.OnShowListener {
         btnParams = _c.get()._neutralBtn.getLayoutParams();
         if (buttonBar instanceof LinearLayout) {
             ((LinearLayout.LayoutParams) btnParams).weight = 1;
-            ((LinearLayout.LayoutParams) btnParams).width = 0;
+            btnParams.width = 0;
         }
         if (_c.get()._enableOptions) {
             buttonBar.addView(_c.get()._neutralBtn, 0, btnParams);

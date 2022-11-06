@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import java.lang.ref.WeakReference;
 
 class defBackPressed implements ChooserDialog.OnBackPressedListener {
-    private WeakReference<ChooserDialog> _c;
+    private final WeakReference<ChooserDialog> _c;
 
     defBackPressed(ChooserDialog e) {
         this._c = new WeakReference<>(e);

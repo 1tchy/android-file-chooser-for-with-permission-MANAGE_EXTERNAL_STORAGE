@@ -49,15 +49,15 @@ class AboutActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    
+
         // TODO add general, readme, license tabs...
         setupUi()
     }
-    
+
     private fun setupUi() {
         setupRecyclerView(recyclerView1)
     }
-    
+
     private fun setupRecyclerView(rv: RecyclerView) {
         rv.apply {
             val linearLayoutManager = object : LinearLayoutManager(this.context) {
@@ -66,22 +66,22 @@ class AboutActivity : AppCompatActivity() {
                 }
             }
             this.layoutManager = linearLayoutManager //LinearLayoutManager(cxt)
-            
+
             this.addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.HORIZONTAL))
             //this.addDivider(R.drawable.recycler_view_divider)
-            
+
             this.itemAnimator = DefaultItemAnimator() //adapter.animator
             //val animation = AnimationUtils.loadLayoutAnimation(this.context, RvTool.layoutAnimationResId)
             //this.layoutAnimation = animation
-            
+
             this.adapter = MainAdapter(this@AboutActivity, aboutItems)
         }
     }
-    
+
     class MainAdapter(private val ctx: AppCompatActivity, items: List<Items>) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
-        
+
         var plainItems: MutableList<Item> = mutableListOf()
-        
+
         init {
             for (it in items) {
                 if (it.items.isNotEmpty())
@@ -89,7 +89,7 @@ class AboutActivity : AppCompatActivity() {
                 plainItems.addAll(it.items)
             }
         }
-    
+
         @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             //return ViewHolder(TextView(parent.context))
@@ -119,7 +119,7 @@ class AboutActivity : AppCompatActivity() {
                                 ctx.startActivity(intent)
                             } catch (e: ActivityNotFoundException) {
                                 ctx.startActivity(Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("http://play.google.com/store/apps/details?id=" + ctx.getPackageName())))
+                                    Uri.parse("http://play.google.com/store/apps/details?id=" + ctx.packageName)))
                             }
                         }
                         else -> ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
@@ -127,17 +127,17 @@ class AboutActivity : AppCompatActivity() {
                 }
             }
         }
-        
+
         override fun getItemCount(): Int {
             return plainItems.size
         }
-        
+
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val it = plainItems[position]
             holder.mTitleView.text = it.title
             holder.mSubTitleView.text = it.subTitle
             holder.mValueView.text = it.value
-            
+
             if (it.subTitle.isBlank()) {
                 holder.mSubTitleView.visibility = View.GONE
             } else {
@@ -149,7 +149,7 @@ class AboutActivity : AppCompatActivity() {
             } else {
                 holder.mCatalogView.visibility = View.GONE
             }
-    
+
             //holder.mValueView.isClickable = !it.valueLink.isBlank()
             holder.mValueView.tag = it.valueLink
             //holder.mIconView.text = it.title
@@ -172,7 +172,7 @@ class AboutActivity : AppCompatActivity() {
             }
         }
     }
-    
+
     companion object {
         val aboutItems = listOf(
             Items("Information", listOf(
@@ -180,7 +180,7 @@ class AboutActivity : AppCompatActivity() {
                 Item("Issues", "Report to us", "https://github.com/hedzr/android-file-chooser/issues/new"),
                 Item("License", "Apache 2.0", "https://github.com/hedzr/android-file-chooser/blob/master/LICENSE"),
                 Item("Rate me", "Like!", "market://details?id=" + "com.obsez.android.lib.filechooser")
-            
+
             )),
             Items("Credits", listOf(
                 Item("Hedzr Yeh", "Email", "mailto:hedzrz@gmail.com", "Maintainer"),

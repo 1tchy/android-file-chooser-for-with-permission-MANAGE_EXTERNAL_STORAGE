@@ -444,24 +444,24 @@ you can customize the text of buttons:
 ```kotlin
 class MyFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_book, container, false)
-        root.upload_button.setOnClickListener { _: View ->
-            ChooserDialog().with(activity)
-                    .withStartFile(Environment.getExternalStorageDirectory().absolutePath)
-                    // .withStartFile(Environment.getExternalStorageState()+"/")
-                    .withFilterRegex(false, false, ".*\\.(jpe?g|png)")
-                    .titleFollowsDir(true)
-                    .displayPath(true)
-                    .customizePathView{ pathView -> pathView.setGravity(Gravity.RIGHT) }
-                    .withChosenListener { path, pathFile -> activity!!.toast("FILE: $path / $pathFile") }
-                    .build()
-                    .show()
-        }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+							  savedInstanceState: Bundle?): View {
+		val root = inflater.inflate(R.layout.fragment_book, container, false)
+		root.upload_button.setOnClickListener { _: View ->
+			ChooserDialog().with(activity)
+				.withStartFile(Environment.getExternalStorageDirectory().absolutePath)
+				// .withStartFile(Environment.getExternalStorageState()+"/")
+				.withFilterRegex(false, false, ".*\\.(jpe?g|png)")
+				.titleFollowsDir(true)
+				.displayPath(true)
+				.customizePathView { pathView -> pathView.setGravity(Gravity.RIGHT) }
+				.withChosenListener { path, pathFile -> activity!!.toast("FILE: $path / $pathFile") }
+				.build()
+				.show()
+		}
 
-        return root
-    }
+		return root
+	}
 }
 ```
 

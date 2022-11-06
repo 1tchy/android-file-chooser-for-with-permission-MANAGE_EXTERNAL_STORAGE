@@ -43,35 +43,33 @@ class keyListener implements DialogInterface.OnKeyListener {
         if (!_c.get()._enableDpad) return true;
 
         if (!_c.get()._list.hasFocus()) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    if (_c.get()._neutralBtn == null) {
-                        return false;
-                    }
-                    if (_c.get()._neutralBtn.hasFocus() || _c.get()._negativeBtn.hasFocus()
-                        || _c.get()._positiveBtn.hasFocus()) {
-                        if (_c.get()._options != null && _c.get()._options.getVisibility() == VISIBLE) {
-                            _c.get()._options.requestFocus(
-                                _c.get()._neutralBtn.hasFocus() ? View.FOCUS_RIGHT : View.FOCUS_LEFT);
-                            return true;
-                        } else if (_c.get()._newFolderView != null
-                            && _c.get()._newFolderView.getVisibility() == VISIBLE) {
-                            _c.get()._newFolderView.requestFocus(View.FOCUS_LEFT);
-                            return true;
-                        } else {
-                            _c.get()._list.requestFocus();
-                            _c.get().lastSelected = true;
-                            return true;
-                        }
-                    }
-                    if (_c.get()._options != null && _c.get()._options.hasFocus()) {
+            if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+                if (_c.get()._neutralBtn == null) {
+                    return false;
+                }
+                if (_c.get()._neutralBtn.hasFocus() || _c.get()._negativeBtn.hasFocus()
+                    || _c.get()._positiveBtn.hasFocus()) {
+                    if (_c.get()._options != null && _c.get()._options.getVisibility() == VISIBLE) {
+                        _c.get()._options.requestFocus(
+                            _c.get()._neutralBtn.hasFocus() ? View.FOCUS_RIGHT : View.FOCUS_LEFT);
+                        return true;
+                    } else if (_c.get()._newFolderView != null
+                        && _c.get()._newFolderView.getVisibility() == VISIBLE) {
+                        _c.get()._newFolderView.requestFocus(View.FOCUS_LEFT);
+                        return true;
+                    } else {
                         _c.get()._list.requestFocus();
                         _c.get().lastSelected = true;
                         return true;
                     }
-                    break;
-                default:
-                    return false;
+                }
+                if (_c.get()._options != null && _c.get()._options.hasFocus()) {
+                    _c.get()._list.requestFocus();
+                    _c.get().lastSelected = true;
+                    return true;
+                }
+            } else {
+                return false;
             }
         }
 

@@ -250,6 +250,6 @@ public class DirAdapter extends ArrayAdapter<File> {
     private PorterDuffColorFilter _colorFilter;
     private SparseArrayCompat<File> _selected = new SparseArrayCompat<File>();
     private GetView _getView = null;
-    private Stack<Integer> _indexStack = new Stack<>();
+    private final Stack<Integer> _indexStack = new Stack<>();
 }
 

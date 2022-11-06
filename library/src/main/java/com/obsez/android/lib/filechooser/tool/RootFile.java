@@ -3,7 +3,7 @@ package com.obsez.android.lib.filechooser.tool;
 import java.io.File;
 
 public final class RootFile extends File {
-    private String name;
+    private final String name;
 
     public RootFile(String path, String name) {
         super(path);

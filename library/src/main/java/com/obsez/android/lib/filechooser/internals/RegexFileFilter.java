@@ -61,10 +61,7 @@ public class RegexFileFilter implements FileFilter {
         }
 
         String name = pathname.getName();
-        if (m_pattern.matcher(name).matches()) {
-            return true;
-        }
-        return false;
-    }
+		return m_pattern.matcher(name).matches();
+	}
 
 }

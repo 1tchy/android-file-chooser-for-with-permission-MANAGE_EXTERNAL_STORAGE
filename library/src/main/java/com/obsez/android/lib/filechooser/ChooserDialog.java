@@ -591,11 +591,11 @@ public class ChooserDialog implements AdapterView.OnItemClickListener, DialogInt
     private void displayPath(String path) {
         if (_pathView == null) {
             int rootId = _context.getResources().getIdentifier("contentPanel", "id", _context.getPackageName());
-            ViewGroup root = ((AlertDialog) _alertDialog).findViewById(rootId);
+            ViewGroup root = _alertDialog.findViewById(rootId);
             // In case the root id was changed or not found.
             if (root == null) {
                 rootId = _context.getResources().getIdentifier("contentPanel", "id", "android");
-                root = ((AlertDialog) _alertDialog).findViewById(rootId);
+                root = _alertDialog.findViewById(rootId);
                 if (root == null) return;
             }
 

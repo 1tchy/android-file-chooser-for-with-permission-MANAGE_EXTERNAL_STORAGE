@@ -82,7 +82,7 @@ public class FileUtil {
                 }
             }
         }
-        return String.valueOf(new DecimalFormat("###.#").format(fileSize) + suffix);
+        return new DecimalFormat("###.#").format(fileSize) + suffix;
     }
 
     @Nullable
@@ -310,14 +310,11 @@ public class FileUtil {
 
     public static boolean createNewDirectory(String name, File parent) {
         final File newDir = new File(parent, name);
-        if (!newDir.exists() && newDir.mkdir()) {
-            //refreshDirs();
-            return true;
-        }
+        //refreshDirs();
+        return !newDir.exists() && newDir.mkdir();
         //Toast.makeText(_context,
         //    "Couldn't create folder " + newDir.getName() + " at " + newDir.getAbsolutePath(),
         //    Toast.LENGTH_LONG).show();
-        return false;
     }
 
     public static class NewFolderFilter implements InputFilter {
