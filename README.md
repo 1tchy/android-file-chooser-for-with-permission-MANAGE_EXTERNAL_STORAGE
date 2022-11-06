@@ -496,11 +496,11 @@ And:
 
 ## What's Different?
 
-- ...
-- ...
-- ...
+- Does not ask for READ_EXTERNAL_STORAGE/WRITE_EXTERNAL_STORAGE permission (developers must implement request for MANAGE_EXTERNAL_STORAGE manually)
+- Only works with Android 30+
+- Updated code and dependencies
 
-For more information please refer to the [upstream repo](https://github.com/hedzr/android-file-chooser).\
+For more information please refer to the [upstream repo](https://github.com/hedzr/android-file-chooser).
 
 
 ## Acknowledges
