@@ -80,10 +80,6 @@ public class ChooseFileActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-		//if (id == R.id.action_settings) {
-        //    return true;
-        //}
-
         if (id == R.id.action_about) {
             startActivity(new Intent(this, AboutActivity.class));
             return true;

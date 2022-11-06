@@ -238,10 +238,6 @@ public class FileUtil {
             long blockSize = sf.getBlockSizeLong(); //文件存储时每一个存储块的大小为4KB
             long blockCount = sf.getBlockCountLong();//存储区域的存储块的总个数
             long availCount = sf.getFreeBlocksLong();//存储区域中可用的存储块的个数（剩余的存储大小）
-            //Log.d("sss", "总的存储空间大小:" + blockSize * blockCount / 1073741824 + "GB" + ",剩余空间:"
-            //    + availCount * blockSize / 1073741824 + "GB"
-            //    + "--存储块的总个数--" + blockCount + "--一个存储块的大小--" + blockSize / 1024 + "KB");
-            //return df.format((freeOrTotal ? availCount : blockCount) * blockSize / 1073741824.0);
             return (freeOrTotal ? availCount : blockCount) * blockSize;
         } catch (Exception ex) {
             Log.e("X", String.format("wrong path '%s'", path), ex);
@@ -277,11 +273,7 @@ public class FileUtil {
 
     public static boolean createNewDirectory(String name, File parent) {
         final File newDir = new File(parent, name);
-        //refreshDirs();
         return !newDir.exists() && newDir.mkdir();
-        //Toast.makeText(_context,
-        //    "Couldn't create folder " + newDir.getName() + " at " + newDir.getAbsolutePath(),
-        //    Toast.LENGTH_LONG).show();
     }
 
     public static class NewFolderFilter implements InputFilter {

@@ -264,8 +264,6 @@ class onShowListener implements DialogInterface.OnShowListener {
 
                             @Override
                             public void onClick(final View view) {
-                                //Toast.makeText(getBaseContext(), "new folder clicked", Toast
-                                // .LENGTH_SHORT).show();
                                 hideOptions.run();
                                 File newFolder = new File(_c.get()._currentDir, "New folder");
                                 for (int i = 1; newFolder.exists(); i++) {
