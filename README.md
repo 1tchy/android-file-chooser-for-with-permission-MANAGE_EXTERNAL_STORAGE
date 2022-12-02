@@ -54,7 +54,7 @@ allprojects {
 2. import `android-file-chooser`
 
 ```gradle
-implementation 'com.github.1tchy:android-file-chooser-for-with-permission-MANAGE_EXTERNAL_STORAGE:master-SNAPSHOT'
+implementation 'com.github.1tchy:android-file-chooser-for-with-permission-MANAGE_EXTERNAL_STORAGE:main-SNAPSHOT'
 ```
 
 > **Tips for using JitPack.io**
